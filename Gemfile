@@ -61,6 +61,7 @@ group :test do
   gem 'guard-rspec', '4.6.4'
   gem 'timecop', '0.8.0'
   gem 'enumerize-matchers', '0.0.2'
+  gem 'warden', '1.2.4'
 end
 
 group :production do

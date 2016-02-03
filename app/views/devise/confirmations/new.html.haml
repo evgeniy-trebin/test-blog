@@ -1,0 +1,31 @@
+.row
+  .col-sm-12.text-center
+    %h2 Resend confirmation instructions
+.row
+  .col-sm-8.col-sm-offset-2
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html:{class: 'form-horizontal', method: :post}) do |f|
+      .form-group
+        %label.col-sm-3.control-label
+          = f.label :email
+        .col-sm-5
+          = f.text_field :email, placeholder: 'Email', class: 'form-control', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+
+      .form-group
+        %label.col-sm-3.control-label
+          = f.label :password
+        .col-sm-5
+          = f.password_field :password, placeholder: 'Password', class: 'form-control'
+
+      - if devise_mapping.rememberable?
+        .form-group
+          %label.col-sm-3.control-label
+            = f.label :remember_me
+          .col-sm-5
+            = f.check_box :remember_me, class: 'form-control'
+
+      .form-group.actions
+        %label.col-sm-3.control-label
+        .col-sm-5
+          = f.submit 'Resend confirmation instructions', class: 'btn btn-success'
+          %br
+          = render 'devise/shared/links'
