@@ -9,7 +9,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table(:users) do |t|
 
       t.string :type, default: 'User', null: false
-      t.string :nickname, default: '', null: false
       t.string :status, default: User::STATUS_ACTIVE, null: false
 
       ## Database authenticatable

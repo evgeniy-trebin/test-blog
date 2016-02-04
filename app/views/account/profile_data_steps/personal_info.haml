@@ -8,7 +8,11 @@
 
       = render partial: 'errors'
 
-      -# TODO nickname
+      .form-group
+        %label.col-sm-2.control-label
+          = f.label :nickname
+        .col-sm-5
+          = f.text_field :nickname, class: 'form-control', placeholder: 'Nickname', autofocus: true
 
       .form-group
         %label.col-sm-2.control-label

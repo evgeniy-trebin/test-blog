@@ -16,6 +16,7 @@ RSpec.feature 'ProfileDataSteps', type: :feature do
     user_sign_in
     visit account_profile_data_step_path(:personal_info)
     within '#profile_personal_info_form' do
+      fill_in 'profile[nickname]', with: 'iva'
       fill_in 'profile[name]', with: 'Ivan'
       fill_in 'profile[surname]', with: 'Ivanov'
       fill_in 'profile[status_text]', with: 'MyCrazyStatus'
@@ -25,6 +26,7 @@ RSpec.feature 'ProfileDataSteps', type: :feature do
     #TODO upload avatar
     click_link 'Skip'
     expect(current_path).to eq(account_profile_path)
+    expect(page).to have_text 'iva'
     expect(page).to have_text 'Ivan'
     expect(page).to have_text 'Ivanov'
     expect(page).to have_text 'MyCrazyStatus'

@@ -8,4 +8,6 @@ class Profile < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader, file_size: {maximum: 3.megabytes.to_i}
 
+  validates :nickname, allow_blank: true, uniqueness: true
+
 end

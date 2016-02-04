@@ -3,7 +3,7 @@ module ProfileDataStepsValidations
   def self.included(base)
 
     base.with_options on: :update do
-      validates_presence_of :name, :surname, if: :should_validate_personal_info?
+      validates_presence_of :name, :surname, :nickname, if: :should_validate_personal_info?
       validates_presence_of :avatar, if: :should_validate_avatar?
     end
 

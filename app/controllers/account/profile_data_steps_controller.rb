@@ -37,7 +37,7 @@ class Account::ProfileDataStepsController < Account:: BaseController
   end
 
   def profile_params
-    params.require(:profile).permit(:name, :surname, :status_text, :avatar)
+    params.require(:profile).permit(:name, :surname, :nickname, :status_text, :avatar)
   end
 
 end

@@ -8,10 +8,10 @@ class CreateProfiles < ActiveRecord::Migration
     belongs_to :user
   end
 
-
   def change
     create_table :profiles do |t|
       t.references :user, index: true, null: false, unique: true
+      t.string :nickname
       t.string :name
       t.string :surname
       t.text :avatar

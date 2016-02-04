@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'shoulda/matchers'
 require 'devise'
+require 'draper/test_case'
 
 ActiveRecord::Migration.maintain_test_schema!
 
