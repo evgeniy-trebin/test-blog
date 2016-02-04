@@ -10,4 +10,21 @@ RSpec.describe User, type: :model do
 
   #TODO other devise validations
 
+  describe '#callbacks' do
+    it 'creates profile after_create' do
+      user = build(:user)
+      expect(user.profile).to be_nil
+      user.save
+      expect(user.profile).to be_a(Profile)
+    end
+
+    it 'must not create profile after update' do
+      user = create(:user)
+      profile = user.profile
+      user.email = Faker::Internet.email
+      user.save
+      expect(profile.id).to eq(Profile.find_by(user_id: user.id).id)
+    end
+  end
+
 end

@@ -12,4 +12,14 @@ class User < ActiveRecord::Base
 
   enumerize :status, in: [STATUS_ACTIVE, STATUS_BANNED], default: STATUS_ACTIVE
 
+  has_one :profile, inverse_of: :user, dependent: :destroy
+
+  before_create :build_default_profile
+
+  private
+
+  def build_default_profile
+    build_profile
+  end
+
 end
