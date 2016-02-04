@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :account do
     resource :profile, only: :show
+    resources :profile_data_steps
   end
 
 end

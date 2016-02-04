@@ -1,0 +1,8 @@
+.row
+  .col-sm-12
+    = form_for @profile, url: wizard_path, method: :patch, html: {id:'profile_avatar_form', class: 'form-horizontal dropzone'} do |f|
+      .form-group
+        .col-sm-12
+          = f.file_field :avatar, style: 'display: none'
+
+= render partial: 'next_step'
