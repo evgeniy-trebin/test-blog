@@ -1,0 +1,29 @@
+.row
+  .col-sm-12
+    %h1
+      Your Profile
+      = link_to 'Edit', account_profile_data_step_path(:personal_info), title: 'Edit profile data', data: {toggle: 'tooltip', placement: 'right'}
+.row
+  .col-sm-12.col-md-3
+    = image_tag @profile.avatar_url, class:'img-responsive'
+  .col-sm-12.col-md-9
+    %table.table.table-striped.table-bordered
+      %tbody
+        %tr
+          %td ShowName
+          %td #{@profile.show_name}
+        %tr
+          %td Nickname
+          %td #{@profile.nickname}
+        %tr
+          %td Name
+          %td #{@profile.name}
+        %tr
+          %td Surname
+          %td #{@profile.surname}
+        %tr
+          %td Full Name
+          %td #{@profile.full_name}
+        %tr
+          %td Status Text
+          %td #{@profile.status_text}

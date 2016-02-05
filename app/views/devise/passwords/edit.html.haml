@@ -1,0 +1,33 @@
+.row
+  .col-sm-12.text-center
+    %h2 Change your password
+.row
+  .col-sm-8.col-sm-offset-2
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: {class: 'form-horizontal', method: :put}) do |f|
+
+      = devise_error_messages!
+
+      = f.hidden_field :reset_password_token
+
+      .form-group
+        %label.col-sm-3.control-label
+          = f.label :password
+          %br/
+          - if @minimum_password_length
+            %em
+              (#{@minimum_password_length} characters minimum)
+        .col-sm-5
+          = f.password_field :password, placeholder: 'New password', class: 'form-control'
+
+      .form-group
+        %label.col-sm-3.control-label
+          = f.label :password_confirmation
+        .col-sm-5
+          = f.password_field :password_confirmation, placeholder: 'Confirm new password', class: 'form-control', autocomplete: 'off'
+
+      .form-group.actions
+        %label.col-sm-3.control-label
+        .col-sm-5
+          = f.submit 'Change my password', class: 'btn btn-success'
+          %br
+          = render 'devise/shared/links'

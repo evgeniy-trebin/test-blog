@@ -1,0 +1,40 @@
+.row
+  .col-sm-12
+    %h1
+      Your Personal Info
+.row
+  .col-sm-12
+    = form_for @profile, url: wizard_path, method: :patch, html: {class: 'form-horizontal', id:'profile_personal_info_form'} do |f|
+
+      = render partial: 'errors'
+
+      .form-group
+        %label.col-sm-2.control-label
+          = f.label :nickname
+        .col-sm-5
+          = f.text_field :nickname, class: 'form-control', placeholder: 'Nickname', autofocus: true
+
+      .form-group
+        %label.col-sm-2.control-label
+          = f.label :name
+        .col-sm-5
+          = f.text_field :name, class: 'form-control', placeholder: 'Name'
+
+      .form-group
+        %label.col-sm-2.control-label
+          = f.label :surname
+        .col-sm-5
+          = f.text_field :surname, class: 'form-control', placeholder: 'Surname'
+
+      .form-group
+        %label.col-sm-2.control-label
+          = f.label :status_text
+        .col-sm-5
+          = f.text_area :status_text, class: 'form-control', placeholer: 'Your status text'
+
+      .form-group
+        .col-sm-5.col-sm-offset-2
+          .actions
+            = f.submit 'Submit', class: 'btn btn-success'
+
+= render partial: 'next_step'

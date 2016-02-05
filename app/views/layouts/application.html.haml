@@ -1,0 +1,10 @@
+!!!
+%html
+  = render partial: 'layouts/_common/head', locals: {title: 'Blog'}
+  %body
+    = render partial: 'layouts/_common/main_navigation'
+    .container
+      = render partial: 'layouts/_common/flash'
+      = yield
+
+    = render partial: 'layouts/_common/javascripts'

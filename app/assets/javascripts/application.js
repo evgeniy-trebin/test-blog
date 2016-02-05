@@ -12,5 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+//= require dropzone
+//= require init
+//= require_tree ./app
+//= require project
+// require_tree .
