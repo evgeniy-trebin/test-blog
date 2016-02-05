@@ -1,0 +1,10 @@
+.page-header
+  = link_to account_articles_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  = link_to edit_account_article_path(@article), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-pencil
+    Edit
+  %h1 Show article
+
+%dl.dl-horizontal

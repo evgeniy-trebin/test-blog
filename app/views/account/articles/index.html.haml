@@ -1,0 +1,20 @@
+.page-header
+  = link_to new_account_article_path, class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New Article
+  %h1 Listing articles
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th
+        %th
+        %th
+
+    %tbody
+      - @articles.each do |article|
+        %tr
+          %td= link_to 'Show', [:account, article]
+          %td= link_to 'Edit', edit_account_article_path(article)
+          %td= link_to 'Destroy', [:account, article], data: { confirm: 'Are you sure?' }, method: :delete
