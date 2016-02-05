@@ -2,7 +2,7 @@
   .col-sm-12
     %h1
       Your Profile
-      = link_to 'Edit', account_profile_data_step_path(:personal_info)
+      = link_to 'Edit', account_profile_data_step_path(:personal_info), title: 'Edit profile data', data: {toggle: 'tooltip', placement: 'right'}
 .row
   .col-sm-12.col-md-3
     = image_tag @profile.avatar_url, class:'img-responsive'
