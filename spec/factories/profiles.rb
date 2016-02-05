@@ -8,5 +8,4 @@ FactoryGirl.define do
       status_text { Faker::Hipster.sentence }
     end
   end
-
 end

@@ -31,6 +31,9 @@ gem 'wicked', '1.2.1'
 gem 'decent_exposure', '2.3.3'
 gem 'draper', '2.1.0'
 
+gem 'paranoia', '2.1.5'
+gem 'paper_trail', '4.1.0'
+
 group :development, :test do
   gem 'byebug', '8.2.2'
   gem 'rspec-rails', '~> 3.0'

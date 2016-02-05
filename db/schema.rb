@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203203112) do
+ActiveRecord::Schema.define(version: 20160205113738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.integer  "user_id",                      null: false
+    t.string   "title"
+    t.text     "announce"
+    t.text     "content"
+    t.datetime "published_at"
+    t.boolean  "is_published", default: false, null: false
+    t.string   "status",       default: "new"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
+  add_index "articles", ["is_published"], name: "index_articles_on_is_published", using: :btree
+  add_index "articles", ["published_at"], name: "index_articles_on_published_at", using: :btree
+  add_index "articles", ["status"], name: "index_articles_on_status", using: :btree
+  add_index "articles", ["updated_at"], name: "index_articles_on_updated_at", using: :btree
+  add_index "articles", ["user_id", "status", "is_published", "published_at"], name: "index_by_all", using: :btree
+  add_index "articles", ["user_id", "status"], name: "index_by_user_id_status", using: :btree
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",     null: false
@@ -49,5 +70,6 @@ ActiveRecord::Schema.define(version: 20160203203112) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "articles", "users"
   add_foreign_key "profiles", "users"
 end
