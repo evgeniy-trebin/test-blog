@@ -1,20 +1,29 @@
-.page-header
-  = link_to new_account_article_path, class: 'btn btn-primary' do
-    %span.glyphicon.glyphicon-plus
-    New Article
-  %h1 Listing articles
+= render layout: 'layout' do
 
-.table-responsive
-  %table.table.table-striped.table-bordered.table-hover
-    %thead
-      %tr
-        %th
-        %th
-        %th
+  .page-header
+    = link_to new_account_article_path, class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      = t_crud_view('links.new', {model_name: 'Article'})
+    %h1
+      = t_crud_view('actions.index.heading', {objects: 'articles'})
 
-    %tbody
-      - @articles.each do |article|
-        %tr
-          %td= link_to 'Show', [:account, article]
-          %td= link_to 'Edit', edit_account_article_path(article)
-          %td= link_to 'Destroy', [:account, article], data: { confirm: 'Are you sure?' }, method: :delete
+  - if articles.any?
+    .table-responsive
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th
+              = t('activerecord.attributes.article.title')
+            %th
+
+        %tbody
+          - articles.each do |article|
+            %tr
+              %td= article.title
+              %td
+                = link_to t_crud_view('links.show'), [:account, article]
+                = link_to t_crud_view('links.edit'), edit_account_article_path(article)
+                = link_to t_crud_view('links.destroy'), [:account, article], data: { confirm: t_crud_view('confirm') }, method: :delete
+  - else
+    %p
+      = t_crud_view('actions.index.no_any', {objects: 'articles'})

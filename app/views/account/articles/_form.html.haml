@@ -1,15 +1,35 @@
-= form_for [:account, @article], html: { class: "form-horizontal", role: "form" } do |f|
-  -if @article.errors.any?
-    .alert.alert-danger.alert-dismissable{role: "alert"}
-      %button.close{type: "button", data: {dismiss: "alert"} }
-        %span{aria: {hidden: "true"} } &times;
-        %span.sr-only Close
-      %h4= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
+.row
+  .col-sm-8.col-sm-offset-2
 
-      %ul
-        - @article.errors.full_messages.each do |msg|
-          %li= msg
+    = form_for [:account, article], html: {role: "form" } do |f|
 
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      = f.submit class: 'btn btn-primary'
+      = render partial: 'errors', locals: {object: article}
+
+      .form-group
+        %label
+          = article.class.human_attribute_name('title')
+        = f.text_field :title, placeholder: 'Title', class: 'form-control'
+
+      .form-group
+        %label
+          = article.class.human_attribute_name('announce')
+        = f.text_area :announce, placeholder: 'Announce', class: 'form-control'
+
+      .form-group
+        %label
+          = article.class.human_attribute_name('content')
+        = f.text_area :content, placeholder: 'Content', class: 'form-control'
+
+      .form-group
+        %label
+          = article.class.human_attribute_name('published_at')
+        = f.datetime_select :published_at, placeholder: 'Published At', class: 'form-control'
+
+      .form-group
+        %label
+          = article.class.human_attribute_name('is_published')
+        = f.check_box :is_published, class: 'form-control'
+
+      .form-group
+        - text = article.new_record? ? t_crud_view('submit_button.create', {model_name: article.model_name.human}) : t_crud_view('submit_button.update', {model_name: article.model_name.human})
+        = f.submit text, class: 'btn btn-primary'

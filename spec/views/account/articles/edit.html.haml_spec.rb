@@ -1,14 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "account/articles/edit", type: :view do
-  before(:each) do
-    @article = assign(:article, create(:article))
-  end
-
-  it "renders the edit article form" do
+RSpec.describe 'account/articles/edit', type: :view do
+  it 'renders the edit article form' do
+    article = create(:article)
+    stub_article { article }
     render
-
-    assert_select "form[action=?][method=?]", account_article_path(@article), "post" do
-    end
+    expect(rendered).to match %r{form.+"#{account_article_path(article)}".+".+method=\"post\"}
+    expect(rendered).to match %r{form.+id="edit_article_#{article.id}"}
   end
 end

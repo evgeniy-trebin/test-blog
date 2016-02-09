@@ -1,10 +1,15 @@
-.page-header
-  = link_to account_articles_path, class: 'btn btn-default' do
-    %span.glyphicon.glyphicon-list-alt
-    Back
-  = link_to [:account, @article], class: 'btn btn-primary' do
-    %span.glyphicon.glyphicon-info-sign
-    Show
-  %h1 Editing article
+= render layout: 'layout' do
 
-= render 'form'
+  .page-header
+    = link_to account_articles_path, class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-list-alt
+      = t_crud_view('links.back')
+
+    = link_to [:account, article], class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-info-sign
+      = t_crud_view('links.show')
+
+    %h1
+      = t_crud_view('actions.edit.heading', {objects: 'articles'})
+
+  = render 'form'

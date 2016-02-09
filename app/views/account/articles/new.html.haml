@@ -1,7 +1,10 @@
-.page-header
-  = link_to account_articles_path, class: 'btn btn-default' do
-    %span.glyphicon.glyphicon-list-alt
-    Back
-  %h1 New article
+= render layout: 'layout' do
+  .page-header
+    = link_to account_articles_path, class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-list-alt
+      = t_crud_view('links.back')
 
-= render 'form'
+    %h1
+      = t_crud_view('actions.new.heading', {item: 'article'})
+
+  = render 'form'

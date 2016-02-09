@@ -1,39 +1,17 @@
 class Account::ArticlesController < Account::BaseController
-  before_action :set_account_article, only: [:show, :edit, :update, :destroy]
-
-  # GET /account/articles
-  # GET /account/articles.json
-  def index
-    @articles = current_user.articles.all
-  end
-
-  # GET /account/articles/1
-  # GET /account/articles/1.json
-  def show
-  end
-
-  # GET /account/articles/new
-  def new
-    @article = Article.new
-  end
-
-  # GET /account/articles/1/edit
-  def edit
-  end
+  expose(:articles) { current_user.articles }
+  expose(:article, attributes: :article_params)
 
   # POST /account/articles
   # POST /account/articles.json
   def create
-    @article = current_user.articles.build
-    @article.attributes = article_params
-
     respond_to do |format|
-      if @article.save
-        format.html { redirect_to account_article_url(@article), notice: 'Article was successfully created.' }
-        format.json { render :show, status: :created, location: account_article_url(@article) }
+      if article.save
+        format.html { redirect_to account_article_url(article), notice: success_notice }
+        format.json { render :show, status: :created, location: account_article_url(article) }
       else
-        format.html { render :new }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+        format.html { render :new, alert: failed_alert }
+        format.json { render json: article.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,12 +20,12 @@ class Account::ArticlesController < Account::BaseController
   # PATCH/PUT /account/articles/1.json
   def update
     respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to account_article_url(@article), notice: 'Article was successfully updated.' }
-        format.json { render :show, status: :ok, location: account_article_url(@article) }
+      if article.update(article_params)
+        format.html { redirect_to account_article_url(article), notice: success_notice }
+        format.json { render :show, status: :ok, location: account_article_url(article) }
       else
-        format.html { render :edit }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+        format.html { render :edit, alert: failed_alert }
+        format.json { render json: article.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,21 +33,33 @@ class Account::ArticlesController < Account::BaseController
   # DELETE /account/articles/1
   # DELETE /account/articles/1.json
   def destroy
-    @article.destroy
     respond_to do |format|
-      format.html { redirect_to account_articles_url, notice: 'Article was successfully destroyed.' }
-      format.json { head :no_content }
+      if article.destroy
+        format.html { redirect_to account_articles_url, notice: success_notice }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to account_articles_url, alert: failed_alert }
+        format.json { render json: article.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account_article
-      @article = current_user.articles.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def article_params
-      params.require(:article).permit(:title, :announce, :content, :is_published, :published_at)
-    end
+  def article_params
+    params.require(:article).permit(:title, :announce, :content, :is_published, :published_at)
+  end
+
+  def success_notice
+    t_flash(:success)
+  end
+
+  def failed_alert
+    t_flash(:fail)
+  end
+
+  def t_flash(result)
+    t("crud.messages.controllers.#{result}.#{action_name}", model_name: article.class.model_name.human)
+  end
+
 end

@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    models:
+      user: User
+      admin: Admin
+      profile: Profile
+      article: Article
+    attributes:
+      user:
+        email: Email
+      profile:
+        nickname: Nickname
+        name: Name
+        surname: Surname
+        avatar: Avatar
+        status_text: Status Text
+        user: User
+        user_id: User id
+      article:
+        title: Title
+        announce: Announce
+        content: Content
+        published_at: Published At
+        is_published: Is published
+        user: User
+        user_id: User id

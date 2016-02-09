@@ -44,7 +44,7 @@ RSpec.describe Account::ArticlesController, type: :controller do
     it "assigns all articles as @articles" do
       article = create(:article, user: @user)
       get :index, {}, valid_session
-      expect(assigns(:articles)).to eq([article])
+      expect(assign_articles).to eq([article])
     end
   end
 
@@ -52,14 +52,14 @@ RSpec.describe Account::ArticlesController, type: :controller do
     it "assigns the requested article as @article" do
       article = create(:article, user: @user)
       get :show, {id: article}, valid_session
-      expect(assigns(:article)).to eq(article)
+      expect(assign_article).to eq(article)
     end
   end
 
   describe "GET #new" do
     it "assigns a new article as @article" do
       get :new, {}, valid_session
-      expect(assigns(:article)).to be_a_new(Article)
+      expect(assign_article).to be_a_new(Article)
     end
   end
 
@@ -67,7 +67,7 @@ RSpec.describe Account::ArticlesController, type: :controller do
     it "assigns the requested article as @article" do
       article = create(:article, user: @user)
       get :edit, {id: article}, valid_session
-      expect(assigns(:article)).to eq(article)
+      expect(assign_article).to eq(article)
     end
   end
 
@@ -81,20 +81,25 @@ RSpec.describe Account::ArticlesController, type: :controller do
 
       it "assigns a newly created article as @article" do
         post :create, {article: valid_attributes}, valid_session
-        expect(assigns(:article)).to be_a(Article)
-        expect(assigns(:article)).to be_persisted
+        expect(assign_article).to be_a(Article)
+        expect(assign_article).to be_persisted
       end
 
       it "redirects to the created article" do
         post :create, {article: valid_attributes}, valid_session
         expect(response).to redirect_to(account_article_url(Article.last)) 
       end
+
+      it "set flash notice" do
+        post :create, {article: valid_attributes}, valid_session
+        expect(flash.notice).to eq(I18n.t("crud.messages.controllers.success.create", model_name: 'Article'))
+      end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved article as @article" do
         post :create, {article:  invalid_attributes}, valid_session
-        expect(assigns(:article)).to be_a_new(Article)
+        expect(assign_article).to be_a_new(Article)
       end
 
       it "re-renders the 'new' template" do
@@ -120,7 +125,7 @@ RSpec.describe Account::ArticlesController, type: :controller do
       it "assigns the requested article as @article" do
         article = create(:article, user: @user)
         put :update, {id: article, article: valid_attributes}, valid_session
-        expect(assigns(:article)).to eq(article)
+        expect(assign_article).to eq(article)
       end
 
       it "redirects to the article" do
@@ -134,7 +139,7 @@ RSpec.describe Account::ArticlesController, type: :controller do
       it "assigns the article as @article" do
         article = create(:article, user: @user)
         put :update, {id: article, article: invalid_attributes}, valid_session
-        expect(assigns(:article)).to eq(article)
+        expect(assign_article).to eq(article)
       end
 
       it "re-renders the 'edit' template" do
@@ -158,6 +163,17 @@ RSpec.describe Account::ArticlesController, type: :controller do
       delete :destroy, {id: article}, valid_session
       expect(response).to redirect_to(account_articles_url)
     end
+  end
+
+
+  private
+
+  def assign_article
+    controller.article
+  end
+
+  def assign_articles
+    controller.articles
   end
 
 end
